@@ -38,7 +38,7 @@ function showFeedback() {
 </script>
 
 <template>
-  <div class="has-logo" style="width: 230px;">
+  <div class="has-logo" style="width: 200px;">
     <!-- <Logo :collapse="isCollapse" /> -->
     <el-scrollbar wrap-class="scrollbar-wrapper" style="padding: 0 8px;">
       <el-menu :default-active="activeMenu" router :unique-opened="true" :collapse="isCollapse"

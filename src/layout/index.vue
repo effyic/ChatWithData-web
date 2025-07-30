@@ -74,7 +74,7 @@ const imageName = ref('首页')
     </div>
     <div style="position: relative;background: #F0F3F8;border-radius: 20px;height:calc(100vh - 96px);">
       <div style="height: 100%;">
-        <div class="image-container" style="width: 100%;">
+        <div class="image-container" style="width: 100%;height: 100%;">
           <img src="@/assets/images/overview.png" alt="bg" style="width: 100%;"/>
           <div class="toggle-button" @click="toggleSideBar">
             <el-icon :size="17">

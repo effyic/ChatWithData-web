@@ -41,7 +41,7 @@ const reportQueue = useWriterQueue()
 
 
 watchEffect(() => {
-  isSend.value = String(userContext.value.trim()).length > 0 && QuestionStore.questionParames.project_id != ''
+  isSend.value = String(userContext.value.trim()).length > 0
 })
 onMounted(() => {
   toScrollBottom() //针对知识库直接跳转对话置底操作
@@ -139,7 +139,8 @@ async function SendmMsg(i: number) {
       body: JSON.stringify({
         query: QuestionStore.questionParames.query,
         session_id: QuestionStore.questionParames.session_id,
-        project_id: QuestionStore.questionParames.project_id,
+        // project_id: QuestionStore.questionParames.project_id,
+        project_id: 1,
       }),
       signal: abortController.signal,
       openWhenHidden: true,

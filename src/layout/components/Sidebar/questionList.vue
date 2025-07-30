@@ -86,12 +86,15 @@ const form = reactive({
 
 <template>
   <div v-show="!collapse" style="height: 100%;">
-
+    <div style="display: flex;align-items: center;gap:10px;margin-bottom: 16px;">
+      <img src="@/assets/images/barLogo.png" alt="" style="width: 40px;height: 30px;">
+      <span style="font-size: 16px;font-weight: 600;color: #333;">中国铁建</span>
+    </div>
     <div class="addBtn" @click="router.push({ name: 'Question' }); QuestionStore.NewSession()">
       新建会话
       <img src="@/assets/images/addChat.png" alt="">
     </div>
-    <div style="height: calc(100% - 56px);overflow-y: auto;">
+    <div style="height: calc(100% - 102px);overflow-y: auto;">
       <div class="quseTop">最近对话</div>
         <div class="qusetionItem" :class="{ 'active': item.id === QuestionStore.idIndex }"
           v-for="(item, i) in QuestionStore.sessionsItemList" :key="i" @click="handleOpenHistory(item)">
