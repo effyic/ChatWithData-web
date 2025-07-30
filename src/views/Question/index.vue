@@ -270,8 +270,8 @@ const handleDelete = () => {
   <div class="app-container">
     <div class="content">
       <div class="content-top"
-        :style="`height: ${QuestionStore.historyList.length > 0 ? 'calc(100% - 184px)' : '0px'};margin-top:${QuestionStore.historyList.length > 0 ? 0 : -200}px`"
         ref="contentTop">
+<!--        :style="`height: ${QuestionStore.historyList.length > 0 ? 'calc(100% - 184px)' : '0px'};margin-top:${QuestionStore.historyList.length > 0 ? 0 : -200}px`"-->
         <div v-show="QuestionStore.historyList.length === 0">
           <h2 style="text-align: center;">有什么可以帮你的</h2>
         </div>
@@ -883,7 +883,7 @@ $primary-color: #3962A5;
     }
 
     .content-bottom {
-
+      margin-top: auto;
       padding: 0 10px;
 
       .sendInputCont {
