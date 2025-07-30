@@ -195,3 +195,13 @@ aside {
 .multiselect--active {
   z-index: 1000 !important;
 }
+
+
+.el-dialog{
+  height: 550px !important;
+  border-radius: 20px !important;
+  .el-dialog__body{
+    height: 100%;
+  }
+  
+}

@@ -70,8 +70,9 @@ export const constantRoutes: RouteRecordRaw[] = [
       {
         path: '/project',
         name: 'Project',
+        hidden: true,
         component: () => import('@/views/Project/index.vue'),
-        meta: { title: 'AI盾构数据分析', icon: 'Knowledgebase' }
+        meta: { title: '', icon: 'Knowledgebase' }
       },
       {
         path: '/instance',

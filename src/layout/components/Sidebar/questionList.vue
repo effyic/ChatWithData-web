@@ -85,22 +85,28 @@ const form = reactive({
 </script>
 
 <template>
-  <div v-show="!collapse">
+  <div v-show="!collapse" style="height: 100%;">
+
     <div class="addBtn" @click="router.push({ name: 'Question' }); QuestionStore.NewSession()">
       新建会话
       <img src="@/assets/images/addChat.png" alt="">
     </div>
-    <div class="quseTop">最近对话</div>
-    <div class="qusetionItem" :class="{ 'active': item.id === QuestionStore.idIndex }"
-      v-for="(item, i) in QuestionStore.sessionsItemList" :key="i" @click="handleOpenHistory(item)">
-      <div class="Item">{{ item.name }}</div>
-      <el-icon style="margin-right: 8px;" @click.stop="handleUpdate(item)" class="action-icon">
-        <Edit />
-      </el-icon>
-      <el-icon @click.stop="handleDelete(item.id)" class="action-icon">
-        <Delete />
-      </el-icon>
+    <div style="height: calc(100% - 56px);overflow-y: auto;">
+      <div class="quseTop">最近对话</div>
+        <div class="qusetionItem" :class="{ 'active': item.id === QuestionStore.idIndex }"
+          v-for="(item, i) in QuestionStore.sessionsItemList" :key="i" @click="handleOpenHistory(item)">
+          <div class="Item">{{ item.name }}</div>
+          <el-icon style="margin-right: 8px;" @click.stop="handleUpdate(item)" class="action-icon">
+            <Edit />
+          </el-icon>
+          <el-icon @click.stop="handleDelete(item.id)" class="action-icon">
+            <Delete />
+          </el-icon>
+        </div>
     </div>
+
+
+
 
     <el-dialog v-model="dialogVisible" title="编辑会话" width="500" :before-close="handleClose">
       <el-form ref="ruleFormRef" :model="form" label-width="auto" style="max-width: 600px">

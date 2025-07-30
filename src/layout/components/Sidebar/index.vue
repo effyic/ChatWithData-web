@@ -38,7 +38,7 @@ function showFeedback() {
 </script>
 
 <template>
-  <div class="has-logo">
+  <div class="has-logo" style="width: 230px;">
     <!-- <Logo :collapse="isCollapse" /> -->
     <el-scrollbar wrap-class="scrollbar-wrapper" style="padding: 0 8px;">
       <el-menu :default-active="activeMenu" router :unique-opened="true" :collapse="isCollapse"
@@ -75,8 +75,8 @@ function showFeedback() {
 
 .question-list {
   flex: 1;
-  padding: 18px 8px 8px 8px;
-  overflow-y: auto;
+  padding: 0px 8px 8px 8px;
+  height: calc(100% - 18px);
 }
 
 .menuList {
