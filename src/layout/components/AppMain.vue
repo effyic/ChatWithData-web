@@ -16,7 +16,8 @@
 <style lang="scss" scoped>
 .app-main {
   /* 50= navbar  50  */
-  height: calc(100vh - 96px);
+  //height: calc(100vh - 96px);
+  height: 100%;
   width: 100%;
   position: relative;
   overflow-y: auto;
