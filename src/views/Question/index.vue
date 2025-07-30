@@ -15,6 +15,7 @@ import { useWriterQueue } from "@/hooks/useWriterQueue";
 import { useUserStore } from '@/stores/user';
 import { useRoute } from 'vue-router'
 import voiceInput from "./components/voiceInput.vue";
+import { Upload, Document, Delete } from '@element-plus/icons-vue'
 
 const route = useRoute()
 
@@ -242,14 +243,27 @@ const handleStop = () => {
 };
 
 const onTranscript = (text: string) => {
-  // userContext.value = text;
-  if (QuestionStore.questionParames.project_id != '') {
+  sendMessage(text)
+  // if (QuestionStore.questionParames.project_id != '') {
 
-    sendMessage(text)
-  } else {
-    ElMessage.error('请先选择系统')
-  }
+  //   sendMessage(text)
+  // } else {
+  //   ElMessage.error('请先选择系统')
+  // }
 };
+
+const fileInfo = ref<{ name: string } | null>(null)
+
+const handleSuccess = (uploadFile: any) => {
+  fileInfo.value = {
+    name: uploadFile.raw.name
+  }
+  ElMessage.success('上传成功')
+}
+
+const handleDelete = () => {
+  fileInfo.value = null
+}
 </script>
 
 <template>
@@ -326,14 +340,34 @@ const onTranscript = (text: string) => {
             <voiceInput style="margin-bottom: 10px;" @transcript="onTranscript" v-show="isVoice" ref="visualizerRef">
             </voiceInput>
             <div class="uploadBtn">
-              <el-select-v2 v-model="QuestionStore.questionParames.project_id" :options="QuestionStore.option"
+              <!-- <el-select-v2 v-model="QuestionStore.questionParames.project_id" :options="QuestionStore.option"
                 placeholder="选择系统" style="width: 190px;  vertical-align: middle" collapse-tags collapse-tags-tooltip>
                 <template #default="{ item }">
                   <el-tooltip effect="light" placement="left" :content="item.label" enterable>
                     {{ item.label }}
                   </el-tooltip>
                 </template>
-              </el-select-v2>
+              </el-select-v2> -->
+
+              <div class="UploadFile">
+                <el-upload
+                  class="upload-file"
+                  :auto-upload="false"
+                  :show-file-list="false"
+                  :on-change="handleSuccess"
+                >
+                  <div class="upload-trigger" v-if="!fileInfo">
+                    <el-icon class="upload-icon"><Upload /></el-icon>
+                    <div class="upload-text">点击上传文件</div>
+                  </div>
+                  <div v-else class="file-info">
+                    <el-icon class="file-icon"><Document /></el-icon>
+                    <span class="file-name">{{ fileInfo.name }}</span>
+                    <el-icon class="delete-icon" @click.stop="handleDelete"><Delete /></el-icon>
+                  </div>
+                </el-upload>
+              </div>
+
               <div v-if="isVoice" @click="handleStop" style="display: flex;align-items: center;">
                 <span v-if="sendLoad" style="color: #999; font-size: 12px;margin-right: 4px;">正在回答中</span>
                 <img style="width: 24px;margin-right: 8px;cursor: pointer;" src="@/assets/images/voiceStop.png" alt="">
@@ -916,6 +950,116 @@ $primary-color: #3962A5;
             display: flex;
             align-items: center;
             justify-content: space-between;
+
+            .UploadFile {
+              width: 200px;
+              margin-right: 10px;
+              
+              .upload-file {
+                width: 100%;
+                
+                :deep(.el-upload) {
+                  width: 100%;
+                }
+              }
+              
+              .upload-trigger {
+                width: 100%;
+                height: 32px;
+                border: 1px solid #CED0D6;
+                border-radius: 16px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s;
+                background: #fff;
+                 border-color: $primary-color;
+                  background: #F6F9FE;
+                
+                &:hover {
+                  border-color: $primary-color;
+                  background: #F6F9FE;
+                  
+                  .upload-icon {
+                    color: $primary-color;
+                  }
+                  
+                  .upload-text {
+                    color: $primary-color;
+                  }
+                }
+                
+                .upload-icon {
+                  font-size: 16px;
+                  color: $primary-color;
+                  margin-right: 4px;
+                  transition: all 0.3s;
+                }
+                
+                .upload-text {
+                  font-size: 12px;
+                 color: $primary-color;
+                  transition: all 0.3s;
+                }
+              }
+              
+              .file-info {
+                width: 100%;
+                height: 32px;
+                background: #F6F9FE;
+                border: 1px solid #CED0D6;
+                border-radius: 16px;
+                padding: 0 12px;
+                display: flex;
+                align-items: center;
+                position: relative;
+                transition: all 0.3s;
+                 border-color: $primary-color;
+                
+                &:hover {
+                  border-color: $primary-color;
+                  background: #F6F9FE;
+                  
+                  .file-icon {
+                    color: $primary-color;
+                  }
+                  
+                  .file-name {
+                    color: $primary-color;
+                  }
+                }
+                
+                .file-icon {
+                  font-size: 16px;
+                  color: $primary-color;
+                  margin-right: 6px;
+                  transition: all 0.3s;
+                }
+                
+                .file-name {
+                  flex: 1;
+                  font-size: 12px;
+                  color: #606266;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                  transition: all 0.3s;
+                }
+                
+                .delete-icon {
+                  font-size: 19px;
+                  cursor: pointer;
+                  padding: 4px;
+                  border-radius: 50%;
+                  transition: all 0.3s;
+                  margin-left: 4px;
+                  background: #f56c6c;
+                   color: #fff;
+                 
+                }
+              }
+            }
 
             :deep(.el-select-v2__wrapper) {
               border-radius: 40px;

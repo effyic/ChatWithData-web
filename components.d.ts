@@ -42,6 +42,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SvgIcon: typeof import('./src/components/SvgIcon/index.vue')['default']
     TopNav: typeof import('./src/components/TopNav/index.vue')['default']
+    UploadFile: typeof import('./src/components/UploadFile.vue')['default']
     VersionUpdateDialog: typeof import('./src/components/VersionUpdateDialog/index.vue')['default']
   }
   export interface ComponentCustomProperties {

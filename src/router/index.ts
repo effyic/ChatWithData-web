@@ -65,21 +65,7 @@ export const constantRoutes: RouteRecordRaw[] = [
         name: 'Question',
         hidden: true,
         component: () => import('@/views/Question/index.vue'),
-        meta: { title: '轻舟智问', icon: 'Question' },
-      },
-      {
-        path: '/project',
-        name: 'Project',
-        hidden: true,
-        component: () => import('@/views/Project/index.vue'),
-        meta: { title: '', icon: 'Knowledgebase' }
-      },
-      {
-        path: '/instance',
-        name: 'Instance',
-        component: () => import('@/views/Project/instance.vue'),
-        meta: { title: '创建实例', icon: '' },
-        hidden: true
+        meta: { title: '', icon: 'Question' },
       },
     ],
   },
