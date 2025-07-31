@@ -52,7 +52,7 @@ const clearTabs = () => {
 
 onMounted(() => {
   clearTabs()
-  timer = setInterval(fetchTabs, 3000)
+  // timer = setInterval(fetchTabs, 3000)
 })
 
 onUnmounted(() => {
@@ -153,12 +153,12 @@ const imageName = ref('首页')
   transition: all 0.3s;
   z-index: 100;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  
+
   &:hover {
     background-color: #f5f7fa;
     transform: translateY(-50%) scale(1.05);
   }
-  
+
   .el-icon {
     color: #909399;
   }
@@ -169,7 +169,9 @@ const imageName = ref('首页')
   min-height: 100%;
   transition: all 0.3s ease;
   margin-left: 0;
-  width: calc(100% - 244px);
+  //width: calc(100% - 244px);
+  width: calc(100% - 204px);
+  //width: calc(100% - 0px);
 
   &.is-collapse {
     width: 100%;
@@ -181,11 +183,12 @@ const imageName = ref('首页')
   height: 100% !important;
   width: 30% !important;
   background: #F0F3F8;
-  
+
+
   .el-dialog__header {
     display: none;
   }
-  
+
   .el-dialog__body {
     height: 100%;
     padding: 0;
@@ -195,9 +198,17 @@ const imageName = ref('首页')
 .image-container {
   position: relative;
   height: 100%;
-  
+
   img {
     object-fit: contain;
   }
+}
+
+</style>
+<style>
+.el-dialog{
+  width: 80% !important;
+  height: 80% !important;
+  --el-dialog-margin-top:10vh;
 }
 </style>

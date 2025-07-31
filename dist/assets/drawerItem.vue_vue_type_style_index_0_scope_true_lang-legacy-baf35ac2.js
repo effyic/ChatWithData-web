@@ -1,0 +1,1 @@
+System.register([],function(e,t){"use strict";return{execute:function(){var e=document.createElement("style");e.textContent=".levelsBox{padding:5px 0}.levelsBox .Boxindect{text-indent:3ch}.levels{font-size:15px;font-weight:500;color:#292c2e}.description{font-size:13px}\n",document.head.appendChild(e)}}});
