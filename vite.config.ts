@@ -16,7 +16,7 @@ export default defineConfig({
     port: 8080,
     proxy: {
       '/api': {
-        target: 'http://172.16.1.250:30135',
+        target: 'https://chatwd.skiffchat.com',
         changeOrigin: true,
       },
     },

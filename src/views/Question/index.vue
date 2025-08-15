@@ -265,16 +265,23 @@ const handleSuccess = (uploadFile: any) => {
 const handleDelete = () => {
   fileInfo.value = null
 }
+
+const questionList = ref([
+  '帮我分析一下，行业板块为轨道交通的项目，平均停机成本有多少？',
+  '帮我对比一下杭州下沙左线和杭州下沙右线(租赁)的掘进长度、掘进速度和掘进总成本',
+  '帮我分析一下长沙湘雅路和南京建宁西路两个项目水、电、柴油的消耗量和金额的对比',
+  '帮我分析一下杭州萧山机场线项目固定成本，可变成本的情况'
+])
 </script>
 
 <template>
   <div class="app-container">
     <div class="content">
-      <div class="content-top"
-        ref="contentTop">
-<!--        :style="`height: ${QuestionStore.historyList.length > 0 ? 'calc(100% - 184px)' : '0px'};margin-top:${QuestionStore.historyList.length > 0 ? 0 : -200}px`"-->
+      <div class="content-top" ref="contentTop">
+        <!--        :style="`height: ${QuestionStore.historyList.length > 0 ? 'calc(100% - 184px)' : '0px'};margin-top:${QuestionStore.historyList.length > 0 ? 0 : -200}px`"-->
         <div v-show="QuestionStore.historyList.length === 0">
-          <h2 style="text-align: center;">有什么可以帮你的</h2>
+          <h2 style="text-align: center;">请询问项目相关问题</h2>
+          <h3 style="text-align: center;">例如：帮我分析一下，行业板块为轨道交通的项目，平均停机成本有多少？</h3>
         </div>
         <div v-for="(message, index) of QuestionStore.historyList" :key="index" class="messageItem">
           <div class="Msgtime" v-if="message?.created_at"> {{ dayjs(message.created_at).format('YYYY-MM-DD HH:mm:ss') }}
@@ -341,15 +348,10 @@ const handleDelete = () => {
             <voiceInput style="margin-bottom: 10px;" @transcript="onTranscript" v-show="isVoice" ref="visualizerRef">
             </voiceInput>
             <div class="uploadBtn">
-              <!-- <el-select-v2 v-model="QuestionStore.questionParames.project_id" :options="QuestionStore.option"
-                placeholder="选择系统" style="width: 190px;  vertical-align: middle" collapse-tags collapse-tags-tooltip>
-                <template #default="{ item }">
-                  <el-tooltip effect="light" placement="left" :content="item.label" enterable>
-                    {{ item.label }}
-                  </el-tooltip>
-                </template>
-              </el-select-v2> -->
-
+              <el-select placeholder="推荐问题" style="width: 240px" @change="(val: string) => sendMessage(val)">
+                <el-option v-for="item in questionList" :key="item" :label="item" :value="item" />
+              </el-select>
+              <!-- 
               <div class="UploadFile">
                 <el-upload
                   class="upload-file"
@@ -367,7 +369,7 @@ const handleDelete = () => {
                     <el-icon class="delete-icon" @click.stop="handleDelete"><Delete /></el-icon>
                   </div>
                 </el-upload>
-              </div>
+              </div> -->
 
               <div v-if="isVoice" @click="handleStop" style="display: flex;align-items: center;">
                 <span v-if="sendLoad" style="color: #999; font-size: 12px;margin-right: 4px;">正在回答中</span>
@@ -955,15 +957,15 @@ $primary-color: #3962A5;
             .UploadFile {
               width: 200px;
               margin-right: 10px;
-              
+
               .upload-file {
                 width: 100%;
-                
+
                 :deep(.el-upload) {
                   width: 100%;
                 }
               }
-              
+
               .upload-trigger {
                 width: 100%;
                 height: 32px;
@@ -975,36 +977,36 @@ $primary-color: #3962A5;
                 justify-content: center;
                 transition: all 0.3s;
                 background: #fff;
-                 border-color: $primary-color;
-                  background: #F6F9FE;
-                
+                border-color: $primary-color;
+                background: #F6F9FE;
+
                 &:hover {
                   border-color: $primary-color;
                   background: #F6F9FE;
-                  
+
                   .upload-icon {
                     color: $primary-color;
                   }
-                  
+
                   .upload-text {
                     color: $primary-color;
                   }
                 }
-                
+
                 .upload-icon {
                   font-size: 16px;
                   color: $primary-color;
                   margin-right: 4px;
                   transition: all 0.3s;
                 }
-                
+
                 .upload-text {
                   font-size: 12px;
-                 color: $primary-color;
+                  color: $primary-color;
                   transition: all 0.3s;
                 }
               }
-              
+
               .file-info {
                 width: 100%;
                 height: 32px;
@@ -1016,28 +1018,28 @@ $primary-color: #3962A5;
                 align-items: center;
                 position: relative;
                 transition: all 0.3s;
-                 border-color: $primary-color;
-                
+                border-color: $primary-color;
+
                 &:hover {
                   border-color: $primary-color;
                   background: #F6F9FE;
-                  
+
                   .file-icon {
                     color: $primary-color;
                   }
-                  
+
                   .file-name {
                     color: $primary-color;
                   }
                 }
-                
+
                 .file-icon {
                   font-size: 16px;
                   color: $primary-color;
                   margin-right: 6px;
                   transition: all 0.3s;
                 }
-                
+
                 .file-name {
                   flex: 1;
                   font-size: 12px;
@@ -1047,7 +1049,7 @@ $primary-color: #3962A5;
                   white-space: nowrap;
                   transition: all 0.3s;
                 }
-                
+
                 .delete-icon {
                   font-size: 19px;
                   cursor: pointer;
@@ -1056,8 +1058,8 @@ $primary-color: #3962A5;
                   transition: all 0.3s;
                   margin-left: 4px;
                   background: #f56c6c;
-                   color: #fff;
-                 
+                  color: #fff;
+
                 }
               }
             }

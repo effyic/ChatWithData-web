@@ -1,70 +1,69 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue'
-import { Fold, Expand } from '@element-plus/icons-vue'
-import Sidebar from './components/Sidebar/index.vue'
-import AppMain from './components/AppMain.vue'
-import Navbar from './components/Navbar.vue'
-import useAppStore from '@/stores/app'
-import { useUserStore } from '@/stores/user'
+import { computed, onMounted, onUnmounted, ref } from "vue";
+import { Fold, Expand } from "@element-plus/icons-vue";
+import Sidebar from "./components/Sidebar/index.vue";
+import AppMain from "./components/AppMain.vue";
+import Navbar from "./components/Navbar.vue";
+import useAppStore from "@/stores/app";
+import { useUserStore } from "@/stores/user";
 import cache from "@/utils/cache";
 import question from "@/api/question";
+import Analysis from "@/views/Analysis/index.vue";
 
-const appStore = useAppStore()
-const sidebar = computed(() => useAppStore().sidebar)
-const device = computed(() => useAppStore().device)
+const appStore = useAppStore();
+const sidebar = computed(() => useAppStore().sidebar);
+const device = computed(() => useAppStore().device);
 const classObj = computed(() => ({
   hideSidebar: !sidebar.value.opened,
   openSidebar: sidebar.value.opened,
   withoutAnimation: sidebar.value.withoutAnimation,
-  mobile: device.value === 'mobile',
-}))
+  mobile: device.value === "mobile",
+}));
 
-const dialogVisible = ref(false)
+const dialogVisible = ref(false);
 
 const toggleSideBar = () => {
-  dialogVisible.value = !dialogVisible.value
+  dialogVisible.value = !dialogVisible.value;
   // appStore.toggleSideBar()
-}
+};
 
-let timer: any = null
+let timer: any = null;
 
 const fetchTabs = () => {
-  question.getTabs().then(res => {
-    if(!res.data){
-      imageName.value = '首页'
-    }else{
-      imageName.value = res.data.main_tab
+  question.getTabs().then((res) => {
+    if (!res.data) {
+      imageName.value = "首页";
+    } else {
+      imageName.value = res.data.main_tab;
     }
-  })
-}
-
+  });
+};
 
 const clearTabs = () => {
   question.deleteTabs().then((res) => {
-    if(!res.data){
-      imageName.value = '首页'
-    }else{
-      imageName.value = res.data.main_tab
+    if (!res.data) {
+      imageName.value = "首页";
+    } else {
+      imageName.value = res.data.main_tab;
     }
-    fetchTabs()
-  })
-}
+    fetchTabs();
+  });
+};
 
 onMounted(() => {
-  clearTabs()
+  clearTabs();
   // timer = setInterval(fetchTabs, 3000)
-})
+});
 
 onUnmounted(() => {
   // 组件卸载时清除定时器
   if (timer) {
-    clearInterval(timer)
-    timer = null
+    clearInterval(timer);
+    timer = null;
   }
-})
+});
 
-const imageName = ref('首页')
-
+const imageName = ref("首页");
 </script>
 
 <template>
@@ -72,10 +71,17 @@ const imageName = ref('首页')
     <div>
       <Navbar />
     </div>
-    <div style="position: relative;background: #F0F3F8;border-radius: 20px;height:calc(100vh - 96px);">
-      <div style="height: 100%;">
-        <div class="image-container" style="width: 100%;height: 100%;">
-          <img src="@/assets/images/overview.png" alt="bg" style="width: 100%;"/>
+    <div
+      style="
+        position: relative;
+        background: #f0f3f8;
+        border-radius: 20px;
+        height: calc(100vh - 96px);
+      "
+    >
+      <div style="height: 100%">
+        <div class="image-container" style="width: 100%; height: 100%">
+          <Analysis></Analysis>
           <div class="toggle-button" @click="toggleSideBar">
             <el-icon :size="17">
               <ChatDotRound />
@@ -97,7 +103,7 @@ const imageName = ref('首页')
       :destroy-on-close="false"
       append-to-body
     >
-      <div style="display: flex;height: 100%;">
+      <div style="display: flex; height: 100%">
         <transition name="sidebar-fade">
           <Sidebar v-if="!sidebar.hide" class="sidebar-container" />
         </transition>
@@ -110,8 +116,8 @@ const imageName = ref('首页')
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/mixin.scss';
-@import '@/assets/styles/variables.module.scss';
+@import "@/assets/styles/mixin.scss";
+@import "@/assets/styles/variables.module.scss";
 // 添加过渡动画样式
 .sidebar-fade-enter-active,
 .sidebar-fade-leave-active {
@@ -182,8 +188,7 @@ const imageName = ref('首页')
   margin: 0 0 0 auto !important;
   height: 100% !important;
   width: 30% !important;
-  background: #F0F3F8;
-
+  background: #f0f3f8;
 
   .el-dialog__header {
     display: none;
@@ -203,12 +208,11 @@ const imageName = ref('首页')
     object-fit: contain;
   }
 }
-
 </style>
 <style>
-.el-dialog{
+.el-dialog {
   width: 80% !important;
   height: 80% !important;
-  --el-dialog-margin-top:10vh;
+  --el-dialog-margin-top: 10vh;
 }
 </style>
